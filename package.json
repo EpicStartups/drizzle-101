@@ -1,0 +1,36 @@
+{
+  "name": "drizzle-101",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "drizzle-kit:generate": "drizzle-kit generate",
+    "drizzle-kit:migrate": "drizzle-kit migrate",
+    "drizzle-kit:drop": "drizzle-kit drop",
+    "drizzle-kit:check": "drizzle-kit check",
+    "drizzle-kit:studio": "drizzle-kit studio",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@t3-oss/env-core": "^0.11.1",
+    "drizzle-orm": "^0.33.0",
+    "postgres": "^3.4.4",
+    "drizzle-zod": "^0.5.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/node": "^22.5.3",
+    "drizzle-kit": "^0.24.2",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "install": "^0.13.0",
+    "prettier": "3.3.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
+  }
+}
