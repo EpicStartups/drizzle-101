@@ -1,58 +1,156 @@
-import {
-  db,
-  insertUserSchema,
-  insertHobbiesSchema,
-  selectUserSchema,
-  CreateHobbies,
-  SelectUser,
-  hobbies,
+import { db } from "./schema";
+import { user, menuItem, order, orderItem, review } from "./schema";
+import type {
+  InsertUser,
+  InsertMenuItem,
+  InsertOrder,
+  InsertOrderItem,
+  InsertReview,
 } from "./schema";
-import { CreateUser } from "./schema";
-import { user } from "./schema";
+import { eq } from "drizzle-orm";
 
 async function main() {
-  const payloadUser: CreateUser = {
-    id: 123213,
-    name: "very long name",
-    email: "jenny@hotmail.com",
-    password: "test",
-    roleEnum: "adminss",
+  // Insert a new user (customer)
+  const payloadUser: InsertUser = {
+    name: "John Doe",
+    password: "password123",
+    role: "admin",
+    email: "john.doe@example.com",
   };
 
-  const payloadHobbies: CreateHobbies = {
-    id: 12213,
-    description: "some description",
-    hobby: "Swimming",
+  const [userInserted] = await db.insert(user).values(payloadUser).returning();
+
+  console.log("User inserted: ", userInserted);
+
+  // Insert a new menu item
+  const payloadMenuItem: InsertMenuItem = {
+    name: "Cheeseburger",
+    description: "Delicious cheeseburger with fries",
+    price: 8.99,
+    category: "Main Course",
   };
 
-  const insertHobby = insertHobbiesSchema.parse(payloadHobbies);
+  const [menuItemInserted] = await db
+    .insert(menuItem)
+    .values(payloadMenuItem)
+    .returning();
 
-  const parsedInsert = insertUserSchema.parse(payloadUser);
-  console.log("zod schema parse");
-  console.log(parsedInsert);
+  console.log("Menu item inserted: ", menuItemInserted);
 
-  const parsedSelectUser = selectUserSchema.parse({
-    name: true,
-  });
-  console.log("Selected user: ", parsedSelectUser);
+  // Insert a new order for the user
+  const payloadOrder: InsertOrder = {
+    userId: userInserted.id,
+    status: "pending",
+    totalAmount: 8.99,
+  };
 
-  const hobbyInserted = await db.insert(hobbies).values(insertHobby);
-  console.log("hobby inserted");
-  console.log(hobbyInserted);
+  const [orderInserted] = await db
+    .insert(order)
+    .values(payloadOrder)
+    .returning({
+      id: order.id,
+      totalAmount: order.totalAmount,
+    });
 
-  const userInserted = await db.insert(user).values(parsedInsert).returning({
-    name: user.name,
-  });
-  console.log("user inserted: ", userInserted);
-  const users = await db.query.user.findMany({
+  console.log("Order inserted: ", orderInserted);
+
+  // Insert order items for the order
+  const payloadOrderItem: InsertOrderItem = {
+    orderId: orderInserted.id,
+    menuItemId: menuItemInserted.id,
+    quantity: 1,
+    price: 8.99,
+  };
+
+  const orderItemInserted = await db
+    .insert(orderItem)
+    .values(payloadOrderItem)
+    .returning({
+      id: orderItem.id,
+      quantity: orderItem.quantity,
+    });
+
+  console.log("Order item inserted: ", orderItemInserted);
+
+  // Insert a review for the menu item
+  const payloadReview: InsertReview = {
+    userId: userInserted.id,
+    menuItemId: menuItemInserted.id,
+    rating: 5,
+    comment: "The cheeseburger was amazing!",
+  };
+
+  const [reviewInserted] = await db
+    .insert(review)
+    .values(payloadReview)
+    .returning({
+      id: review.id,
+      rating: review.rating,
+      comment: review.comment,
+    });
+
+  console.log("Review inserted: ", reviewInserted);
+
+  // Fetch all users with role "customer"
+  const customerUsers = await db.query.user.findMany({
     columns: {
       name: true,
+      email: true,
+    },
+    where: (user, { eq }) => eq(user.role, "customer"),
+  });
+
+  console.log("Customer users: ", customerUsers);
+
+  // Fetch all menu items
+  const allMenuItems = await db.query.menuItem.findMany({
+    columns: {
+      name: true,
+      price: true,
     },
   });
-  console.log(users);
-  const deleted = await db.delete(user);
-  console.log("deleted");
-  console.log(deleted);
+
+  console.log("All menu items: ", allMenuItems);
+
+  // Fetch orders and their items
+  const [ordersWithItems] = await db.query.order.findMany({
+    // with: {
+    //   items: true,
+    // },
+  });
+
+  console.log("Orders with items: ", ordersWithItems);
+
+  // Delete the inserted review
+  // const deletedReview = await db
+  //   .delete(review)
+  //   .where(eq(review.id, reviewInserted.id));
+  //
+  // console.log("Deleted review: ", deletedReview);
+  //
+  // // Delete the inserted order and its items
+  // const deletedOrderItems = await db
+  //   .delete(orderItem)
+  //   .where(eq(orderItem.orderId, orderInserted.id));
+  //
+  // const deletedOrder = await db
+  //   .delete(order)
+  //   .where(eq(order.id, orderInserted.id));
+  //
+  // console.log("Deleted order items: ", deletedOrderItems);
+  // console.log("Deleted order: ", deletedOrder);
+  //
+  // // Delete the inserted menu item
+  // const deletedMenuItem = await db
+  //   .delete(menuItem)
+  //   .where(eq(menuItem.id, menuItemInserted.id));
+  //
+  // console.log("Deleted menu item: ", deletedMenuItem);
+  //
+  // // Delete the inserted user
+  // const deletedUser = await db.delete(user).where(eq(user.id, userInserted.id));
+  //
+  // console.log("Deleted user: ", deletedUser);
 }
 
 main();
