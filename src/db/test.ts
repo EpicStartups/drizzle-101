@@ -1,4 +1,4 @@
-import { db } from "./schema";
+import { db } from "./conn";
 import { user, menuItem, order, orderItem, review } from "./schema";
 import type {
   InsertUser,
@@ -6,7 +6,7 @@ import type {
   InsertOrder,
   InsertOrderItem,
   InsertReview,
-} from "./schema";
+} from "./schemaTypes";
 import { eq } from "drizzle-orm";
 
 async function main() {
@@ -14,7 +14,7 @@ async function main() {
   const payloadUser: InsertUser = {
     name: "John Doe",
     password: "password123",
-    role: "admin",
+    role: "customer",
     email: "john.doe@example.com",
   };
 
@@ -109,48 +109,54 @@ async function main() {
       price: true,
     },
   });
-
   console.log("All menu items: ", allMenuItems);
 
   // Fetch orders and their items
-  const [ordersWithItems] = await db.query.order.findMany({
-    // with: {
-    //   items: true,
-    // },
+  const ordersWithItems = await db.query.order.findMany({
+    with: {
+      items: true,
+    },
   });
 
   console.log("Orders with items: ", ordersWithItems);
 
   // Delete the inserted review
-  // const deletedReview = await db
-  //   .delete(review)
-  //   .where(eq(review.id, reviewInserted.id));
-  //
-  // console.log("Deleted review: ", deletedReview);
-  //
-  // // Delete the inserted order and its items
-  // const deletedOrderItems = await db
-  //   .delete(orderItem)
-  //   .where(eq(orderItem.orderId, orderInserted.id));
-  //
-  // const deletedOrder = await db
-  //   .delete(order)
-  //   .where(eq(order.id, orderInserted.id));
-  //
-  // console.log("Deleted order items: ", deletedOrderItems);
-  // console.log("Deleted order: ", deletedOrder);
-  //
-  // // Delete the inserted menu item
-  // const deletedMenuItem = await db
-  //   .delete(menuItem)
-  //   .where(eq(menuItem.id, menuItemInserted.id));
-  //
-  // console.log("Deleted menu item: ", deletedMenuItem);
-  //
-  // // Delete the inserted user
-  // const deletedUser = await db.delete(user).where(eq(user.id, userInserted.id));
-  //
-  // console.log("Deleted user: ", deletedUser);
+  const deletedReview = await db
+    .delete(review)
+    .where(eq(review.id, reviewInserted.id))
+    .returning({ deletedId: review.id });
+
+  console.log("Deleted review: ", deletedReview);
+
+  // Delete the inserted order and its items
+  const deletedOrderItems = await db
+    .delete(orderItem)
+    .where(eq(orderItem.orderId, orderInserted.id))
+    .returning({ deletedId: orderItem.id });
+
+  const deletedOrder = await db
+    .delete(order)
+    .where(eq(order.id, orderInserted.id))
+    .returning({ deletedId: order.id });
+
+  console.log("Deleted order items: ", deletedOrderItems);
+  console.log("Deleted order: ", deletedOrder);
+
+  // Delete the inserted menu item
+  const deletedMenuItem = await db
+    .delete(menuItem)
+    .where(eq(menuItem.id, menuItemInserted.id))
+    .returning();
+
+  console.log("Deleted menu item: ", deletedMenuItem);
+
+  // Delete the inserted user
+  const deletedUser = await db
+    .delete(user)
+    .where(eq(user.id, userInserted.id))
+    .returning({ deletedId: user.id });
+
+  console.log("Deleted user: ", deletedUser);
 }
 
 main();
