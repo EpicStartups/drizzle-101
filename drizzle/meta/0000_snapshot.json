@@ -1,5 +1,5 @@
 {
-  "id": "0c1a7390-a747-406b-beb5-dd9b57f6f5f6",
+  "id": "029e3f8d-a7e9-4887-b2cc-4c75087bbefd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -202,10 +202,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "order_table_id_table_id_fk": {
-          "name": "order_table_id_table_id_fk",
+        "order_table_id_tableSeating_id_fk": {
+          "name": "order_table_id_tableSeating_id_fk",
           "tableFrom": "order",
-          "tableTo": "table",
+          "tableTo": "tableSeating",
           "columnsFrom": [
             "table_id"
           ],
@@ -453,10 +453,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "reservation_table_id_table_id_fk": {
-          "name": "reservation_table_id_table_id_fk",
+        "reservation_table_id_tableSeating_id_fk": {
+          "name": "reservation_table_id_tableSeating_id_fk",
           "tableFrom": "reservation",
-          "tableTo": "table",
+          "tableTo": "tableSeating",
           "columnsFrom": [
             "table_id"
           ],
@@ -587,8 +587,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.table": {
-      "name": "table",
+    "public.tableSeating": {
+      "name": "tableSeating",
       "schema": "",
       "columns": {
         "id": {
@@ -622,8 +622,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "table_number_unique": {
-          "name": "table_number_unique",
+        "tableSeating_number_unique": {
+          "name": "tableSeating_number_unique",
           "nullsNotDistinct": false,
           "columns": [
             "number"
@@ -647,6 +647,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "github_id": {
+          "name": "github_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "email": {
           "name": "email",

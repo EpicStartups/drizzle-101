@@ -71,7 +71,7 @@ export const menuItem = pgTable("menu_item", {
 });
 
 // Table table
-export const table = pgTable("table", {
+export const tableSeating = pgTable("tableSeating", {
   id: uuid("id").primaryKey().defaultRandom(),
   number: integer("number").notNull().unique(),
   capacity: integer("capacity").notNull(),
@@ -84,7 +84,7 @@ export const order = pgTable("order", {
   userId: uuid("user_id")
     .notNull()
     .references(() => user.id),
-  tableId: uuid("table_id").references(() => table.id),
+  tableId: uuid("table_id").references(() => tableSeating.id),
   status: orderStatusEnum("status").default("pending").notNull(),
   totalAmount: real("total_amount").notNull(),
   specialInstructions: text("special_instructions"),
@@ -92,7 +92,7 @@ export const order = pgTable("order", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Order item table (association between order and menu items)
+// Order item table Seating(association between order and menu items)
 export const orderItem = pgTable("order_item", {
   id: uuid("id").primaryKey().defaultRandom(),
   orderId: uuid("order_id")
@@ -128,7 +128,7 @@ export const reservation = pgTable("reservation", {
     .references(() => user.id),
   tableId: uuid("table_id")
     .notNull()
-    .references(() => table.id),
+    .references(() => tableSeating.id),
   date: date("date", { mode: "date" }).notNull(),
   time: timestamp("time").notNull(),
   numberOfGuests: integer("number_of_guests").notNull(),
@@ -176,9 +176,9 @@ export const orderRelations = relations(order, ({ one, many }) => ({
     fields: [order.userId],
     references: [user.id],
   }),
-  table: one(table, {
+  tableSeating: one(tableSeating, {
     fields: [order.tableId],
-    references: [table.id],
+    references: [tableSeating.id],
   }),
   items: many(orderItem),
   payment: many(payment),
@@ -212,7 +212,7 @@ export const reviewRelations = relations(review, ({ one }) => ({
   }),
 }));
 
-export const tableRelations = relations(table, ({ many }) => ({
+export const tableRelations = relations(tableSeating, ({ many }) => ({
   orders: many(order),
   reservations: many(reservation),
 }));
@@ -222,9 +222,9 @@ export const reservationRelations = relations(reservation, ({ one }) => ({
     fields: [reservation.userId],
     references: [user.id],
   }),
-  table: one(table, {
+  tableSeating: one(tableSeating, {
     fields: [reservation.tableId],
-    references: [table.id],
+    references: [tableSeating.id],
   }),
 }));
 
@@ -250,7 +250,7 @@ const schema = {
   order,
   orderItem,
   review,
-  table,
+  tableSeating,
   reservation,
   payment,
   inventory,

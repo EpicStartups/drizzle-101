@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Menu Interface</title>
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
+      }
+
+      .container {
+          max-width: 414px;
+          margin: 0 auto;
+          background-color: white;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+      }
+
+      .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 20px;
+          background-color: #f8f8f8;
+      }
+
+      .search-bar {
+          flex-grow: 1;
+          margin: 0 10px;
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 20px;
+          font-size: 14px;
+      }
+
+      .main-content {
+          flex-grow: 1;
+          display: flex;
+          overflow: hidden;
+      }
+
+      .sidebar {
+          width: 60px;
+          background-color: #f8f8f8;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 10px 0;
+          overflow-y: auto;
+      }
+
+      .sidebar-item {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 20px;
+          color: #333;
+      }
+
+      .menu-content {
+          flex-grow: 1;
+          padding: 20px;
+          overflow-y: auto;
+      }
+
+      .menu-section {
+          margin-bottom: 20px;
+      }
+
+      .menu-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+      }
+
+      .menu-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+      }
+
+      .menu-item img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 8px;
+          margin-bottom: 10px;
+      }
+
+      .menu-item-title {
+          font-weight: bold;
+          margin-bottom: 5px;
+      }
+
+      .menu-item-price {
+          color: #666;
+      }
+
+      .footer {
+          display: flex;
+          justify-content: space-around;
+          padding: 10px 0;
+          background-color: #f8f8f8;
+          border-top: 1px solid #ddd;
+      }
+
+      .footer-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-size: 12px;
+          color: #333;
+      }
+
+      .footer-item i {
+          font-size: 20px;
+          margin-bottom: 5px;
+      }
+
+      /* Hide scrollbars */
+      ::-webkit-scrollbar {
+          display: none;
+      }
+
+      * {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div>2:06</div>
+    <input type="text" class="search-bar"
+           placeholder="Search for your favourite drink">
+    <div>5G</div>
+  </header>
+  <main class="main-content">
+    <nav class="sidebar">
+      <div class="sidebar-item">☕</div>
+      <div class="sidebar-item">🍽️</div>
+      <div class="sidebar-item">🥤</div>
+      <div class="sidebar-item">🍰</div>
+      <div class="sidebar-item">⚡</div>
+      <div class="sidebar-item">🥗</div>
+      <div class="sidebar-item">🍱</div>
+      <div class="sidebar-item">☕</div>
+      <div class="sidebar-item">🍽️</div>
+      <div class="sidebar-item">🥤</div>
+      <div class="sidebar-item">🍰</div>
+      <div class="sidebar-item">⚡</div>
+      <div class="sidebar-item">🥗</div>
+      <div class="sidebar-item">🍱</div>
+      <div class="sidebar-item">☕</div>
+      <div class="sidebar-item">🍽️</div>
+      <div class="sidebar-item">🥤</div>
+      <div class="sidebar-item">🍰</div>
+      <div class="sidebar-item">⚡</div>
+      <div class="sidebar-item">🥗</div>
+      <div class="sidebar-item">🍱</div>
+      <div class="sidebar-item">☕</div>
+      <div class="sidebar-item">🍽️</div>
+      <div class="sidebar-item">🥤</div>
+      <div class="sidebar-item">🍰</div>
+      <div class="sidebar-item">⚡</div>
+      <div class="sidebar-item">🥗</div>
+      <div class="sidebar-item">🍱</div>
+      <div class="sidebar-item">☕</div>
+      <div class="sidebar-item">🍽️</div>
+      <div class="sidebar-item">🥤</div>
+      <div class="sidebar-item">🍰</div>
+      <div class="sidebar-item">⚡</div>
+      <div class="sidebar-item">🥗</div>
+      <div class="sidebar-item">🍱</div>
+
+    </nav>
+    <div class="menu-content">
+      <section class="menu-section">
+        <h2>Truly Local</h2>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <img src="/api/placeholder/150/100" alt="Pak Nasser's Nasi Lemak">
+            <div class="menu-item-title">Pak Nasser's Nasi Lemak</div>
+            <div class="menu-item-price">RM 12.90</div>
+          </div>
+          <div class="menu-item">
+            <img src="/api/placeholder/150/100" alt="Spaghetti Carbonara">
+            <div class="menu-item-title">Spaghetti Carbonara</div>
+            <div class="menu-item-price">RM 12.90</div>
+          </div>
+        </div>
+      </section>
+      <section class="menu-section">
+        <h2>Cakes</h2>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <img src="/api/placeholder/150/100" alt="Burnt Cheese Cake">
+            <div class="menu-item-title">Burnt Cheese Cake</div>
+            <div class="menu-item-price">RM 13.50</div>
+          </div>
+        </div>
+      </section>
+      <section class="menu-section">
+        <h2>Healthy Snacks</h2>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <img src="/api/placeholder/150/100" alt="Healthy Snack 1">
+            <div class="menu-item-title">Healthy Snack 1</div>
+            <div class="menu-item-price">RM 8.90</div>
+          </div>
+          <div class="menu-item">
+            <img src="/api/placeholder/150/100" alt="Healthy Snack 2">
+            <div class="menu-item-title">Healthy Snack 2</div>
+            <div class="menu-item-price">RM 8.90</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="footer-item">
+      <i>🍽️</i>
+      <span>Menu</span>
+    </div>
+    <div class="footer-item">
+      <i>🎁</i>
+      <span>Gift Card</span>
+    </div>
+    <div class="footer-item">
+      <i>🏆</i>
+      <span>Rewards</span>
+    </div>
+    <div class="footer-item">
+      <i>👤</i>
+      <span>Account</span>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

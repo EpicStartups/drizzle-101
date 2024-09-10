@@ -5,7 +5,7 @@ import {
   order,
   orderItem,
   review,
-  table,
+  tableSeating,
   reservation,
   payment,
   inventory,
@@ -82,7 +82,7 @@ async function main() {
     .returning();
   console.log("Menu item updated: ", menuItemUpdated);
 
-  // Insert a new table
+  // Insert a newtableSeating
   const payloadTable: InsertTable = {
     number: 1,
     capacity: 4,
@@ -90,7 +90,7 @@ async function main() {
   };
 
   const [tableInserted] = await db
-    .insert(table)
+    .insert(tableSeating)
     .values(payloadTable)
     .returning();
   console.log("Table inserted: ", tableInserted);
@@ -247,7 +247,7 @@ async function main() {
     ),
     with: {
       user: true,
-      table: true,
+      tableSeating: true,
     },
   });
   console.log("Today's reservations: ", reservations);
@@ -308,12 +308,12 @@ async function main() {
     .returning({ deletedId: menuItem.id });
   console.log("Deleted menu item: ", deletedMenuItem);
 
-  // Delete the inserted table
+  // Delete the insertedtableSeating
   const deletedTable = await db
-    .delete(table)
-    .where(eq(table.id, tableInserted.id))
-    .returning({ deletedId: table.id });
-  console.log("Deleted table: ", deletedTable);
+    .delete(tableSeating)
+    .where(eq(tableSeating.id, tableInserted.id))
+    .returning({ deletedId: tableSeating.id });
+  console.log("Deleted tableSeating: ", deletedTable);
 
   // Delete the inserted user
   const deletedUser = await db

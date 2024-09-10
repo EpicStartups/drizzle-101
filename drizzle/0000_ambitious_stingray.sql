@@ -101,17 +101,18 @@ CREATE TABLE IF NOT EXISTS "session" (
 	"expires_at" timestamp with time zone NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "table" (
+CREATE TABLE IF NOT EXISTS "tableSeating" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"number" integer NOT NULL,
 	"capacity" integer NOT NULL,
 	"is_occupied" boolean DEFAULT false,
-	CONSTRAINT "table_number_unique" UNIQUE("number")
+	CONSTRAINT "tableSeating_number_unique" UNIQUE("number")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
+	"github_id" text,
 	"email" text NOT NULL,
 	"password" text NOT NULL,
 	"role" "role" NOT NULL,
@@ -135,7 +136,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "order" ADD CONSTRAINT "order_table_id_table_id_fk" FOREIGN KEY ("table_id") REFERENCES "public"."table"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "order" ADD CONSTRAINT "order_table_id_tableSeating_id_fk" FOREIGN KEY ("table_id") REFERENCES "public"."tableSeating"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -165,7 +166,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "reservation" ADD CONSTRAINT "reservation_table_id_table_id_fk" FOREIGN KEY ("table_id") REFERENCES "public"."table"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "reservation" ADD CONSTRAINT "reservation_table_id_tableSeating_id_fk" FOREIGN KEY ("table_id") REFERENCES "public"."tableSeating"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
