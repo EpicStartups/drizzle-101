@@ -35,7 +35,7 @@ export const paymentMethodEnum = pgEnum("payment_method", [
 
 // User table
 export const user = pgTable("user", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
@@ -44,6 +44,17 @@ export const user = pgTable("user", {
   loyaltyPoints: integer("loyalty_points").default(0),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const sessionTable = pgTable("session", {
+  id: text("id").primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => user.id),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
 });
 
 // Menu table
@@ -234,6 +245,7 @@ export const inventoryRelations = relations(inventory, ({ one }) => ({
 const schema = {
   user,
   menuItem,
+  sessionTable,
   order,
   orderItem,
   review,
