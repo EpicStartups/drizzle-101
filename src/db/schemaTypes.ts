@@ -6,7 +6,7 @@ import {
   orderItem,
   review,
   user,
-  table,
+  tableSeating,
   reservation,
   payment,
   inventory,
@@ -21,7 +21,7 @@ export const insertMenuItemSchema = createInsertSchema(menuItem);
 export const insertOrderSchema = createInsertSchema(order);
 export const insertOrderItemSchema = createInsertSchema(orderItem);
 export const insertReviewSchema = createInsertSchema(review);
-export const insertTableSchema = createInsertSchema(table);
+export const insertTableSeatingSchema = createInsertSchema(tableSeating);
 export const insertReservationSchema = createInsertSchema(reservation);
 export const insertPaymentSchema = createInsertSchema(payment);
 export const insertInventorySchema = createInsertSchema(inventory);
@@ -32,7 +32,7 @@ export type InsertMenuItem = z.infer<typeof insertMenuItemSchema>;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
 export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
 export type InsertReview = z.infer<typeof insertReviewSchema>;
-export type InsertTable = z.infer<typeof insertTableSchema>;
+export type InsertTableSeating = z.infer<typeof insertTableSeatingSchema>;
 export type InsertReservation = z.infer<typeof insertReservationSchema>;
 export type InsertPayment = z.infer<typeof insertPaymentSchema>;
 export type InsertInventory = z.infer<typeof insertInventorySchema>;
@@ -43,7 +43,7 @@ export const selectMenuItemSchema = createSelectSchema(menuItem);
 export const selectOrderSchema = createSelectSchema(order);
 export const selectOrderItemSchema = createSelectSchema(orderItem);
 export const selectReviewSchema = createSelectSchema(review);
-export const selectTableSchema = createSelectSchema(table);
+export const selectTableSchema = createSelectSchema(tableSeating);
 export const selectReservationSchema = createSelectSchema(reservation);
 export const selectPaymentSchema = createSelectSchema(payment);
 export const selectInventorySchema = createSelectSchema(inventory);

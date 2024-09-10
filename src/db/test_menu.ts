@@ -16,7 +16,7 @@ import type {
   InsertOrder,
   InsertOrderItem,
   InsertReview,
-  InsertTable,
+  InsertTableSeating,
   InsertReservation,
   InsertPayment,
   InsertInventory,
@@ -83,7 +83,7 @@ async function main() {
   console.log("Menu item updated: ", menuItemUpdated);
 
   // Insert a newtableSeating
-  const payloadTable: InsertTable = {
+  const payloadTable: InsertTableSeating = {
     number: 1,
     capacity: 4,
     isOccupied: false,
