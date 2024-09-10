@@ -37,6 +37,7 @@ export const paymentMethodEnum = pgEnum("payment_method", [
 export const user = pgTable("user", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
   name: text("name").notNull(),
+  githubId: text("github_id"),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
   role: roleEnum("role").notNull(),

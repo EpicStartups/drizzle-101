@@ -8,18 +8,30 @@ importers:
 
   .:
     dependencies:
+      '@logtape/logtape':
+        specifier: ^0.5.0
+        version: 0.5.0
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.1.0
-        version: 1.1.0(drizzle-orm@0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4))(lucia@3.2.0)
+        version: 1.1.0(drizzle-orm@0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4))(lucia@3.2.0)
       '@t3-oss/env-core':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.5.4)(zod@3.23.8)
+      '@types/bun':
+        specifier: ^1.1.9
+        version: 1.1.9
+      arctic:
+        specifier: ^1.9.2
+        version: 1.9.2
+      bun:
+        specifier: ^1.1.27
+        version: 1.1.27
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4)
+        version: 0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4)
       drizzle-zod:
         specifier: ^0.5.1
-        version: 0.5.1(drizzle-orm@0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8)
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
@@ -385,6 +397,9 @@ packages:
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
 
+  '@logtape/logtape@0.5.0':
+    resolution: {integrity: sha512-fJpPP52BtPCNq45aZlOZvmzm0XlIbZjop6RhZFRiIPdx3ktMThxmq884x0Sg3bT3UT62bjg7NlvMejlSMWqdBQ==}
+
   '@lucia-auth/adapter-drizzle@1.1.0':
     resolution: {integrity: sha512-iCTnZWvfI5lLZOdUHZYiXA1jaspIFEeo2extLxQ3DjP3uOVys7IPwBi7zezLIRu9dhro4H4Kji+7gSYyjcef2A==}
     peerDependencies:
@@ -577,6 +592,46 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@oven/bun-darwin-aarch64@1.1.27':
+    resolution: {integrity: sha512-h5Mf2+AESEtHHGRdSDQgDU7TY2vMPMeAuwkf/XPMDpaS+EoIUFayj1CXShB25gT16uw/ww/Pl3LaN0sN0tcWhQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@oven/bun-darwin-x64-baseline@1.1.27':
+    resolution: {integrity: sha512-Ld+FBW3VUzGOI9QhsQKnaiYinGcOQg83NpagoeyMASozFJEMyDEr/jxA5KxoSEJRChQrGZowq/7IfoPIcJZIUA==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oven/bun-darwin-x64@1.1.27':
+    resolution: {integrity: sha512-l+uAcE0kh4+c2VUwKvSpsHFQbzR2eLxGKhONa4AJBNVW4UXIpSdH12Qj9fG4Xqgq7s26zs32jPsl2C2NQsmRag==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oven/bun-linux-aarch64@1.1.27':
+    resolution: {integrity: sha512-4oaNlx07SFxhO26Lm2cfRjozEQX/qRoWFhnz+EFLlGPUPLB2cNmXCVMtmXJep0u4Jub5pGK9yISwNT1voZ6KMg==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oven/bun-linux-x64-baseline@1.1.27':
+    resolution: {integrity: sha512-495DOwgzpr/0ta/AaSRYb7EJeAEAf38cBOUO6oJzCxT5NdWRbZeAo5bmqcrBke1AexnKPA7RUN9Z5+t1TvqjtQ==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-linux-x64@1.1.27':
+    resolution: {integrity: sha512-ktplW245+ke0GIKdBEzZisZ4mwAqdPYmW3RzhDPGB7193jVmaAE1YVUscrWkTAdfl6YMGb99IXThrhcXSddeAw==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-windows-x64-baseline@1.1.27':
+    resolution: {integrity: sha512-Qfn80kb9eDZaecCVVVxFpNfuHvo7h4yQlh278u9Vs0vSrHTYG4dxoH4SWkZSzHa44ZwKRpa1TmMfDVhX/HE+mA==}
+    cpu: [x64]
+    os: [win32]
+
+  '@oven/bun-windows-x64@1.1.27':
+    resolution: {integrity: sha512-LIZRqlyLpMEkmbsA+d/GmQnEdJzMGlFRlVtdQnyjTskW+uMv+lBHmWu7CkdcCCVPtf6wRDYgdkjpQOAw1wle5g==}
+    cpu: [x64]
+    os: [win32]
+
   '@t3-oss/env-core@0.11.1':
     resolution: {integrity: sha512-MaxOwEoG1ntCFoKJsS7nqwgcxLW1SJw238AJwfJeaz3P/8GtkxXZsPPolsz1AdYvUTbe3XvqZ/VCdfjt+3zmKw==}
     peerDependencies:
@@ -589,11 +644,20 @@ packages:
   '@tybys/wasm-util@0.8.3':
     resolution: {integrity: sha512-Z96T/L6dUFFxgFJ+pQtkPpne9q7i6kIPYCFnQBHSgSPV9idTsKfIhCss0h5iM9irweZCatkrdeP8yi5uM1eX6Q==}
 
+  '@types/bun@1.1.9':
+    resolution: {integrity: sha512-SXJRejXpmAc3qxyN/YS4/JGWEzLf4dDBa5fLtRDipQXHqNccuMU4EUYCooXNTsylG0DmwFQsGgEDHxZF+3DqRw==}
+
+  '@types/node@20.12.14':
+    resolution: {integrity: sha512-scnD59RpYD91xngrQQLGkE+6UrHUPzeKZWhhjBSa3HSkwjbQc38+q3RoIVEwxQGRw3M+j5hpNAM+lgV3cVormg==}
+
   '@types/node@22.5.3':
     resolution: {integrity: sha512-njripolh85IA9SQGTAqbmnNZTdxv7X/4OYGPz8tgy5JDr8MP+uDBa921GpYEoDDnwm0Hmn5ZPeJgiiSTPoOzkQ==}
 
   '@types/pg@8.11.8':
     resolution: {integrity: sha512-IqpCf8/569txXN/HoP5i1LjXfKZWL76Yr2R77xgeIICUbAYHeoaEZFhYHo2uDftecLWrTJUq63JvQu8q3lnDyA==}
+
+  '@types/ws@8.5.12':
+    resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
 
   '@typescript-eslint/eslint-plugin@8.4.0':
     resolution: {integrity: sha512-rg8LGdv7ri3oAlenMACk9e+AR4wUV0yrrG+XKsGKOK0EVgeEDqurkXMPILG2836fW4ibokTB5v4b6Z9+GYQDEw==}
@@ -673,6 +737,9 @@ packages:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
 
+  arctic@1.9.2:
+    resolution: {integrity: sha512-VTnGpYx+ypboJdNrWnK17WeD7zN/xSCHnpecd5QYsBfVZde/5i+7DJ1wrf/ioSDMiEjagXmyNWAE3V2C9f1hNg==}
+
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
@@ -691,6 +758,14 @@ packages:
 
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
+
+  bun-types@1.1.27:
+    resolution: {integrity: sha512-rHXAiIDefeMS/fleNM1rRDYqolJGNRdch3+AuCRwcZWaqTa1vjGBNsahH/HVV7Y82frllYhJomCVSEiHzLzkgg==}
+
+  bun@1.1.27:
+    resolution: {integrity: sha512-FLnMaOuVVuhjPIfmlRtAE42B2x+oSWO6jW8MZ/Ss179qokN//nzIhuj/07bdA016U6d11HyLvvGb6eaH0HKhBQ==}
+    os: [darwin, linux, win32]
+    hasBin: true
 
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -1264,6 +1339,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
@@ -1486,9 +1564,11 @@ snapshots:
 
   '@humanwhocodes/retry@0.3.0': {}
 
-  '@lucia-auth/adapter-drizzle@1.1.0(drizzle-orm@0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4))(lucia@3.2.0)':
+  '@logtape/logtape@0.5.0': {}
+
+  '@lucia-auth/adapter-drizzle@1.1.0(drizzle-orm@0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4))(lucia@3.2.0)':
     dependencies:
-      drizzle-orm: 0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4)
+      drizzle-orm: 0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4)
       lucia: 3.2.0
 
   '@node-rs/argon2-android-arm-eabi@1.7.0':
@@ -1631,6 +1711,30 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
+  '@oven/bun-darwin-aarch64@1.1.27':
+    optional: true
+
+  '@oven/bun-darwin-x64-baseline@1.1.27':
+    optional: true
+
+  '@oven/bun-darwin-x64@1.1.27':
+    optional: true
+
+  '@oven/bun-linux-aarch64@1.1.27':
+    optional: true
+
+  '@oven/bun-linux-x64-baseline@1.1.27':
+    optional: true
+
+  '@oven/bun-linux-x64@1.1.27':
+    optional: true
+
+  '@oven/bun-windows-x64-baseline@1.1.27':
+    optional: true
+
+  '@oven/bun-windows-x64@1.1.27':
+    optional: true
+
   '@t3-oss/env-core@0.11.1(typescript@5.5.4)(zod@3.23.8)':
     dependencies:
       zod: 3.23.8
@@ -1642,6 +1746,14 @@ snapshots:
       tslib: 2.7.0
     optional: true
 
+  '@types/bun@1.1.9':
+    dependencies:
+      bun-types: 1.1.27
+
+  '@types/node@20.12.14':
+    dependencies:
+      undici-types: 5.26.5
+
   '@types/node@22.5.3':
     dependencies:
       undici-types: 6.19.8
@@ -1651,6 +1763,10 @@ snapshots:
       '@types/node': 22.5.3
       pg-protocol: 1.6.1
       pg-types: 4.0.2
+
+  '@types/ws@8.5.12':
+    dependencies:
+      '@types/node': 22.5.3
 
   '@typescript-eslint/eslint-plugin@8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.9.1)(typescript@5.5.4))(eslint@9.9.1)(typescript@5.5.4)':
     dependencies:
@@ -1752,6 +1868,10 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
+  arctic@1.9.2:
+    dependencies:
+      oslo: 1.2.0
+
   argparse@2.0.1: {}
 
   balanced-match@1.0.2: {}
@@ -1770,6 +1890,22 @@ snapshots:
       fill-range: 7.1.1
 
   buffer-from@1.1.2: {}
+
+  bun-types@1.1.27:
+    dependencies:
+      '@types/node': 20.12.14
+      '@types/ws': 8.5.12
+
+  bun@1.1.27:
+    optionalDependencies:
+      '@oven/bun-darwin-aarch64': 1.1.27
+      '@oven/bun-darwin-x64': 1.1.27
+      '@oven/bun-darwin-x64-baseline': 1.1.27
+      '@oven/bun-linux-aarch64': 1.1.27
+      '@oven/bun-linux-x64': 1.1.27
+      '@oven/bun-linux-x64-baseline': 1.1.27
+      '@oven/bun-windows-x64': 1.1.27
+      '@oven/bun-windows-x64-baseline': 1.1.27
 
   callsites@3.1.0: {}
 
@@ -1807,15 +1943,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4):
+  drizzle-orm@0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4):
     optionalDependencies:
       '@types/pg': 8.11.8
+      bun-types: 1.1.27
       pg: 8.12.0
       postgres: 3.4.4
 
-  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8):
+  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8):
     dependencies:
-      drizzle-orm: 0.33.0(@types/pg@8.11.8)(pg@8.12.0)(postgres@3.4.4)
+      drizzle-orm: 0.33.0(@types/pg@8.11.8)(bun-types@1.1.27)(pg@8.12.0)(postgres@3.4.4)
       zod: 3.23.8
 
   esbuild-register@3.6.0(esbuild@0.19.12):
@@ -2270,6 +2407,8 @@ snapshots:
       - supports-color
 
   typescript@5.5.4: {}
+
+  undici-types@5.26.5: {}
 
   undici-types@6.19.8: {}
 
