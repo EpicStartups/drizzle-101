@@ -307,3 +307,29 @@ export default schema;
  * of the food. after the user eats the food, they will be given the option to rate other people's reviews of their particular food.
  *
  */
+
+/**
+ * how ab tests work is fundamentally you will have a winner and a loser.
+ * the number of rounds the AB test takes will ultimately determine the winner.
+ * fundamentally, every contestant will need to be played off against everyone else. the winners with the other winners.
+ * the losers with the other losers. they will do these games until there's a ratio of 50 50, whereby 50% winners and 50% losers.
+ * from the perspective of a food review, there's 100 reviews of foods. the games are played whereby each food is pitted against the others.
+ * assume the scenario whereby everyone is shown one paring of food and only one. thus after one round, there will be 50% winners and 50% losers.
+ * play this the second time whereby among the winners, they are pitted against each other.
+ * so this for up to X number of rounds until there's a review with the magical number of Y upvotes. this review has been proven to be valid
+ * the Y upvotes requirement is based on a formula whereby there needs to be at least 20% of the reviews being valid for this particular review.
+ * the fundamental goal of this review system is so that only the best reviews win. in this way, we can assume that the game is played until 20% of the reviews win.
+ * the review needs to have at least 60% of it's showing as positive. the review is time based whereby after a specific time period, the reviews are calculated
+ * and the winner is choosen. this is because if a restaurant does not have enough customers there won't be enough reviews.
+ * the system will basically take the review against all other reviews and chooses the top 20%. fundamentally however, the reivew will always be shown against other reviews
+ * that have similar stats to it. which means win ratios. it shows how many times the review has been shown and what's its win rate. then find similar reviews with a similar win rate
+ * as the way to match them up together
+ *
+ * for the same of a website, we just show two options. these 2 options are pitted against each other. after a time period, the option that has the best stats will
+ * be choosen.
+ *
+ * to have multiple variations of a site shown, we will store the contestants together in the system and it's always tracking the win. it's based on time. once the time limit is up
+ * then it will automatically run. there cannot be more than 2 contestants per game id. the contestants are automatically pitted against each other. the client will just call the api to get
+ * the new games, and automatically there will be new games with the relevant contestants. From a website perspective, the AI will generate 2 sites, and store them as contestants in the game.
+ * the client is submitting who wins the games. after x amount of time, then the winner is choosen
+ */
