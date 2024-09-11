@@ -346,3 +346,24 @@ export default schema;
  * the new games, and automatically there will be new games with the relevant contestants. From a website perspective, the AI will generate 2 sites, and store them as contestants in the game.
  * the client is submitting who wins the games. after x amount of time, then the winner is choosen
  */
+
+/**
+ * understanding how dropee works. the future of b2b ecommerce fundamentally it's about letting suppliers sell their products to the end consumer.
+ * one of the features we can offer is predictive
+ *  /**
+ *    * with b2b suppliers to retailers. the fundamental premise is that we can bulk up the small retailers so they can purchase from the big guys in bigger quantity.
+ *    * One of the channels will be all the small holders who wish to purchase from the platform.
+ *    * what will the platform do for them is help them reach out to the suppliers. it's like alibaba. the problem is on the retailer app. to engage with the customers.
+ *    * however, how can the platform also help suppliers. fundamentally suppliers would like to understand how their product will reach out to the market.
+ *    * they would like to have analytics in to how their products are selling well. they would like to see dashboard and charts on how it's performing. who's buying.
+ *    * how we can embeded ai into this.
+ *    * suppliers can utilize the chatbot feature provided by the platform. this allows retailers to speak with the main AI and the bot can auto respond on behalf of the suppliers.
+ *    * if there's anything that the bot does not know, then the company can respond to the retailers directly.
+ *    *
+ *    * also integrating with logistics companies so that all suppliers can benefit from the platform. for example fertilizer, all the fertlizier companies want to target the smaller players.
+ *    * in this scenario, the platform will bulk up the orders from the small holders. the platform can even purchase on behalf of the small holders. the platform will then supply to the retailers.
+ *    * more of the work is being done by the platform. the platform also helps suppliers sell their products by promoting it to the right retailers. there's a recommendation engine that will
+ *    * encourage retailers to purchase the right products. the platform also becomes a financial intermediary to purchase products on behalf of the retailers and give them loans first.
+ *    * or to basically allow credit terms to the retailers.
+ *    */
+ */
