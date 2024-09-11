@@ -365,5 +365,5 @@ export default schema;
  *    * more of the work is being done by the platform. the platform also helps suppliers sell their products by promoting it to the right retailers. there's a recommendation engine that will
  *    * encourage retailers to purchase the right products. the platform also becomes a financial intermediary to purchase products on behalf of the retailers and give them loans first.
  *    * or to basically allow credit terms to the retailers.
- *    */
+ *
  */
