@@ -1,6 +1,5 @@
 import {
   pgEnum,
-  pgTable,
   timestamp,
   text,
   uuid,
@@ -11,7 +10,10 @@ import {
   uniqueIndex,
   integer,
   AnyPgColumn,
+  pgSchema,
 } from "drizzle-orm/pg-core";
+
+export const schemaSeller = pgSchema("seller");
 
 // Define enums
 export const roleEnum = pgEnum("role", ["admin", "customer", "staff"]);
@@ -36,7 +38,7 @@ export const paymentMethodEnum = pgEnum("payment_method", [
 ]);
 
 // User table
-export const user = pgTable(
+export const user = schemaSeller.table(
   "user",
   {
     id: uuid("id").primaryKey().defaultRandom().notNull(),
@@ -58,7 +60,7 @@ export const user = pgTable(
   },
 );
 
-export const users = pgTable("users", {
+export const users = schemaSeller.table("users", {
   user_id: uuid("user_id").primaryKey().defaultRandom().notNull(),
   username: text("username").notNull(),
   email: text("email").notNull().unique(),
@@ -70,7 +72,7 @@ export const users = pgTable("users", {
   role: roleEnum("role").notNull(),
 });
 
-export const user_profiles = pgTable("user_profiles", {
+export const user_profiles = schemaSeller.table("user_profiles", {
   profile_id: uuid("profile_id").primaryKey().defaultRandom().notNull(),
   user_id: uuid("user_id").references(() => users.user_id),
   full_name: text("full_name"),
@@ -86,31 +88,31 @@ export const user_profiles = pgTable("user_profiles", {
   updated_at: timestamp("updated_at").defaultNow(),
 });
 
-export const roles = pgTable("roles", {
+export const roles = schemaSeller.table("roles", {
   role_id: uuid("role_id").primaryKey().defaultRandom().notNull(),
   role_name: text("role_name").unique().notNull(),
   description: text("description"),
 });
 
-export const user_roles = pgTable("user_roles", {
+export const user_roles = schemaSeller.table("user_roles", {
   user_id: uuid("user_id").references(() => users.user_id),
   role_id: uuid("role_id").references(() => roles.role_id),
 });
 
-export const permissions = pgTable("permissions", {
+export const permissions = schemaSeller.table("permissions", {
   permission_id: uuid("permission_id").primaryKey().defaultRandom().notNull(),
   permission_name: text("permission_name").unique().notNull(),
   description: text("description"),
 });
 
-export const role_permissions = pgTable("role_permissions", {
+export const role_permissions = schemaSeller.table("role_permissions", {
   role_id: uuid("role_id").references(() => roles.role_id),
   permission_id: uuid("permission_id").references(
     () => permissions.permission_id,
   ),
 });
 
-export const banners = pgTable("banners", {
+export const banners = schemaSeller.table("banners", {
   banner_id: uuid("banner_id").primaryKey().defaultRandom().notNull(),
   user_id: uuid("user_id").references(() => users.user_id),
   image_url: text("image_url").notNull(),
@@ -123,7 +125,7 @@ export const banners = pgTable("banners", {
   created_at: timestamp("created_at").defaultNow(),
 });
 
-export const campaigns = pgTable("campaigns", {
+export const campaigns = schemaSeller.table("campaigns", {
   campaign_id: uuid("campaign_id").primaryKey().defaultRandom().notNull(),
   name: text("name").notNull(),
   description: text("description"),
@@ -132,14 +134,20 @@ export const campaigns = pgTable("campaigns", {
   status: text("status").default("upcoming"),
 });
 
-export const campaign_participants = pgTable("campaign_participants", {
-  participant_id: uuid("participant_id").primaryKey().defaultRandom().notNull(),
-  campaign_id: uuid("campaign_id").references(() => campaigns.campaign_id),
-  user_id: uuid("user_id").references(() => users.user_id),
-  joined_at: timestamp("joined_at").defaultNow(),
-});
+export const campaign_participants = schemaSeller.table(
+  "campaign_participants",
+  {
+    participant_id: uuid("participant_id")
+      .primaryKey()
+      .defaultRandom()
+      .notNull(),
+    campaign_id: uuid("campaign_id").references(() => campaigns.campaign_id),
+    user_id: uuid("user_id").references(() => users.user_id),
+    joined_at: timestamp("joined_at").defaultNow(),
+  },
+);
 
-export const delivery_channels = pgTable("delivery_channels", {
+export const delivery_channels = schemaSeller.table("delivery_channels", {
   channel_id: uuid("channel_id").primaryKey().defaultRandom().notNull(),
   user_id: uuid("user_id").references(() => users.user_id),
   name: text("name").notNull(),
@@ -147,7 +155,7 @@ export const delivery_channels = pgTable("delivery_channels", {
   created_at: timestamp("created_at").defaultNow(),
 });
 
-export const delivery_zones = pgTable("delivery_zones", {
+export const delivery_zones = schemaSeller.table("delivery_zones", {
   zone_id: uuid("zone_id").primaryKey().defaultRandom().notNull(),
   channel_id: uuid("channel_id").references(() => delivery_channels.channel_id),
   name: text("name").notNull(),
@@ -156,7 +164,7 @@ export const delivery_zones = pgTable("delivery_zones", {
   special_instructions: text("special_instructions"),
 });
 
-export const shipping_rates = pgTable("shipping_rates", {
+export const shipping_rates = schemaSeller.table("shipping_rates", {
   rate_id: uuid("rate_id").primaryKey().defaultRandom().notNull(),
   zone_id: uuid("zone_id").references(() => delivery_zones.zone_id),
   min_weight: real("min_weight"),
@@ -164,7 +172,7 @@ export const shipping_rates = pgTable("shipping_rates", {
   price: real("price").notNull(),
 });
 
-export const categories = pgTable("categories", {
+export const categories = schemaSeller.table("categories", {
   category_id: uuid("category_id").primaryKey().defaultRandom().notNull(),
   parent_category_id: uuid("parent_category_id").references(
     (): AnyPgColumn => categories.category_id,
@@ -174,14 +182,14 @@ export const categories = pgTable("categories", {
   is_approved: boolean("is_approved").default(false),
 });
 
-export const brands = pgTable("brands", {
+export const brands = schemaSeller.table("brands", {
   brand_id: uuid("brand_id").primaryKey().defaultRandom().notNull(),
   name: text("name").notNull(),
   description: text("description"),
   is_approved: boolean("is_approved").default(false),
 });
 
-export const products = pgTable(
+export const products = schemaSeller.table(
   "products",
   {
     product_id: uuid("product_id").primaryKey().defaultRandom().notNull(),
@@ -212,7 +220,7 @@ export const products = pgTable(
   },
 );
 
-export const product_images = pgTable("product_images", {
+export const product_images = schemaSeller.table("product_images", {
   image_id: uuid("image_id").primaryKey().defaultRandom().notNull(),
   product_id: uuid("product_id").references(() => products.product_id),
   image_url: text("image_url").notNull(),
@@ -220,14 +228,14 @@ export const product_images = pgTable("product_images", {
   created_at: timestamp("created_at").defaultNow(),
 });
 
-export const product_views = pgTable("product_views", {
+export const product_views = schemaSeller.table("product_views", {
   view_id: uuid("view_id").primaryKey().defaultRandom().notNull(),
   product_id: uuid("product_id").references(() => products.product_id),
   user_id: uuid("user_id").references(() => users.user_id),
   viewed_at: timestamp("viewed_at").defaultNow(),
 });
 
-export const invoices = pgTable(
+export const invoices = schemaSeller.table(
   "invoices",
   {
     invoice_id: uuid("invoice_id").primaryKey().defaultRandom().notNull(),
@@ -248,7 +256,7 @@ export const invoices = pgTable(
   },
 );
 
-export const invoice_items = pgTable("invoice_items", {
+export const invoice_items = schemaSeller.table("invoice_items", {
   item_id: uuid("item_id").primaryKey().defaultRandom().notNull(),
   invoice_id: uuid("invoice_id").references(() => invoices.invoice_id),
   product_id: uuid("product_id").references(() => products.product_id),
@@ -257,7 +265,7 @@ export const invoice_items = pgTable("invoice_items", {
   total_price: real("total_price").notNull(),
 });
 
-export const payments = pgTable("payments", {
+export const payments = schemaSeller.table("payments", {
   payment_id: uuid("payment_id").primaryKey().defaultRandom().notNull(),
   invoice_id: uuid("invoice_id").references(() => invoices.invoice_id),
   amount: real("amount").notNull(),
@@ -267,7 +275,7 @@ export const payments = pgTable("payments", {
   status: paymentStatusEnum("status").default("pending"),
 });
 
-export const credit_limits = pgTable("credit_limits", {
+export const credit_limits = schemaSeller.table("credit_limits", {
   credit_id: uuid("credit_id").primaryKey().defaultRandom().notNull(),
   user_id: uuid("user_id").references(() => users.user_id),
   customer_id: uuid("customer_id").references(() => users.user_id),
@@ -276,7 +284,7 @@ export const credit_limits = pgTable("credit_limits", {
   last_updated: timestamp("last_updated").defaultNow(),
 });
 
-export const orders = pgTable(
+export const orders = schemaSeller.table(
   "orders",
   {
     order_id: uuid("order_id").primaryKey().defaultRandom().notNull(),
@@ -302,7 +310,7 @@ export const orders = pgTable(
   },
 );
 
-export const order_items = pgTable("order_items", {
+export const order_items = schemaSeller.table("order_items", {
   item_id: uuid("item_id").primaryKey().defaultRandom().notNull(),
   order_id: uuid("order_id").references(() => orders.order_id),
   product_id: uuid("product_id").references(() => products.product_id),
@@ -311,7 +319,7 @@ export const order_items = pgTable("order_items", {
   total_price: real("total_price").notNull(),
 });
 
-export const shipments = pgTable("shipments", {
+export const shipments = schemaSeller.table("shipments", {
   shipment_id: uuid("shipment_id").primaryKey().defaultRandom().notNull(),
   order_id: uuid("order_id").references(() => orders.order_id),
   shipping_method: text("shipping_method").notNull(),
@@ -322,7 +330,7 @@ export const shipments = pgTable("shipments", {
   status: text("status").default("preparing"),
 });
 
-export const support_tickets = pgTable(
+export const support_tickets = schemaSeller.table(
   "support_tickets",
   {
     ticket_id: uuid("ticket_id").primaryKey().defaultRandom().notNull(),
@@ -344,7 +352,7 @@ export const support_tickets = pgTable(
   },
 );
 
-export const ticket_responses = pgTable("ticket_responses", {
+export const ticket_responses = schemaSeller.table("ticket_responses", {
   response_id: uuid("response_id").primaryKey().defaultRandom().notNull(),
   ticket_id: uuid("ticket_id").references(() => support_tickets.ticket_id),
   responder_id: uuid("responder_id").references(() => users.user_id),
@@ -352,7 +360,7 @@ export const ticket_responses = pgTable("ticket_responses", {
   created_at: timestamp("created_at").defaultNow(),
 });
 
-export const returns = pgTable("returns", {
+export const returns = schemaSeller.table("returns", {
   return_id: uuid("return_id").primaryKey().defaultRandom().notNull(),
   order_id: uuid("order_id").references(() => orders.order_id),
   user_id: uuid("user_id").references(() => users.user_id),
@@ -362,7 +370,7 @@ export const returns = pgTable("returns", {
   updated_at: timestamp("updated_at").defaultNow(),
 });
 
-export const return_items = pgTable("return_items", {
+export const return_items = schemaSeller.table("return_items", {
   return_item_id: uuid("return_item_id").primaryKey().defaultRandom().notNull(),
   return_id: uuid("return_id").references(() => returns.return_id),
   product_id: uuid("product_id").references(() => products.product_id),
@@ -370,7 +378,7 @@ export const return_items = pgTable("return_items", {
   reason: text("reason").notNull(),
 });
 
-export const refunds = pgTable("refunds", {
+export const refunds = schemaSeller.table("refunds", {
   refund_id: uuid("refund_id").primaryKey().defaultRandom().notNull(),
   return_id: uuid("return_id").references(() => returns.return_id),
   amount: real("amount").notNull(),
@@ -379,7 +387,7 @@ export const refunds = pgTable("refunds", {
   refund_method: text("refund_method").notNull(),
 });
 
-export const reviews = pgTable(
+export const reviews = schemaSeller.table(
   "reviews",
   {
     review_id: uuid("review_id").primaryKey().defaultRandom().notNull(),
@@ -397,7 +405,7 @@ export const reviews = pgTable(
   },
 );
 
-export const review_responses = pgTable("review_responses", {
+export const review_responses = schemaSeller.table("review_responses", {
   response_id: uuid("response_id").primaryKey().defaultRandom().notNull(),
   review_id: uuid("review_id").references(() => reviews.review_id),
   user_id: uuid("user_id").references(() => users.user_id),
